@@ -87,6 +87,8 @@ const ctx = canvas.getContext("2d");
 let drawing = false;
 let distance = 0;
 let previous = null;
+let strokes = [];
+let activeStroke = null;
 
 function clearPad() {
   ctx.fillStyle = "#e7dfc9";
@@ -97,6 +99,8 @@ function clearPad() {
   ctx.lineJoin = "round";
   distance = 0;
   previous = null;
+  strokes = [];
+  activeStroke = null;
   feedback.textContent = "";
 }
 
@@ -111,12 +115,15 @@ function point(event) {
 canvas.addEventListener("pointerdown",e => {
   drawing = true;
   previous = point(e);
+  activeStroke = [previous];
+  strokes.push(activeStroke);
   canvas.setPointerCapture(e.pointerId);
 });
 
 canvas.addEventListener("pointermove",e => {
   if (!drawing) return;
   const next = point(e);
+  activeStroke.push(next);
   ctx.beginPath();
   ctx.moveTo(previous.x,previous.y);
   ctx.lineTo(next.x,next.y);
@@ -130,6 +137,7 @@ canvas.addEventListener("pointermove",e => {
 
 function stopDrawing() {
   drawing = false;
+  activeStroke = null;
   previous = null;
 }
 
@@ -139,9 +147,31 @@ canvas.addEventListener("pointercancel",stopDrawing);
 document.querySelector("#clear").onclick = clearPad;
 
 document.querySelector("#check").onclick = () => {
-  feedback.textContent = distance > 100
-    ? "Drawing captured! Compare it with the rune above."
-    : "Draw the rune before checking.";
+  if (distance < 30) {
+    feedback.textContent = "Draw the rune first.";
+    return;
+  }
+
+  const result = RuneRecognizer.recognize(
+    strokes,current
+  );
+
+  feedback.textContent = result.passed
+    ? `ᚠ Success! Accuracy: ${result.score}%`
+    : `Accuracy: ${result.score}%. Try again!`;
+
+  if (result.passed) {
+    const saved = JSON.parse(
+      localStorage.getItem("runeMastery") || "{}"
+    );
+    saved[current] = Math.max(
+      saved[current] || 0,
+      result.score
+    );
+    localStorage.setItem(
+      "runeMastery",JSON.stringify(saved)
+    );
+  }
 };
 
 document.querySelector("#next").onclick = () =>
