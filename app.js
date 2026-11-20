@@ -177,39 +177,12 @@ document.querySelector("#check").onclick = () => {
 document.querySelector("#next").onclick = () =>
   selectRune((current+1)%runes.length);
 
-const mapping = {
-  th:"ᚦ",ng:"ᛜ",
-  f:"ᚠ",u:"ᚢ",a:"ᚨ",r:"ᚱ",
-  k:"ᚲ",c:"ᚲ",g:"ᚷ",w:"ᚹ",
-  h:"ᚺ",n:"ᚾ",i:"ᛁ",j:"ᛃ",
-  y:"ᛃ",p:"ᛈ",z:"ᛉ",s:"ᛊ",
-  t:"ᛏ",b:"ᛒ",e:"ᛖ",m:"ᛗ",
-  l:"ᛚ",d:"ᛞ",o:"ᛟ",
-  v:"ᚹ"
-};
-
-function transliterate(text) {
-  const input = text.toLowerCase();
-  let result = "";
-  for(let i=0;i<input.length;) {
-    const pair = input.slice(i,i+2);
-    if(mapping[pair]) {
-      result += mapping[pair];
-      i += 2;
-    } else {
-      result += mapping[input[i]] ?? input[i];
-      i++;
-    }
-  }
-  return result;
-}
-
 const english = document.querySelector("#english");
 const translation = document.querySelector("#translation");
 
 english.addEventListener("input",() => {
   translation.textContent =
-    transliterate(english.value);
+    RunicEnglish.encode(english.value);
 });
 
 selectRune(0);
