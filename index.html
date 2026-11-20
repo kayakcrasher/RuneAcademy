@@ -15,6 +15,41 @@
 </header>
 
 <main>
+
+<section id="runeHall" class="norse-card">
+  <h2>ᛟ The Rune Hall</h2>
+  <p>Your journey through the Elder Futhark.</p>
+
+  <div class="stat-row">
+    <div class="stat">
+      <strong id="masteredCount">0</strong>
+      <span>Runes Mastered</span>
+    </div>
+    <div class="stat">
+      <strong id="masteryPercent">0%</strong>
+      <span>Completion</span>
+    </div>
+  </div>
+
+  <div class="progress-track"
+       role="progressbar"
+       aria-label="Rune mastery"
+       aria-valuemin="0"
+       aria-valuemax="100"
+       aria-valuenow="0"
+       id="masteryTrack">
+    <div id="masteryBar"
+         class="progress-fill"
+         style="width:0%"></div>
+  </div>
+
+  <p>
+    <button id="hallPractice" class="primary">
+      Practice Next Rune
+    </button>
+  </p>
+</section>
+
   <nav aria-label="Learning modes">
     <button data-tab="learn" class="active">Learn</button>
     <button data-tab="draw">Draw</button>
@@ -53,6 +88,13 @@
     <textarea id="english"
       placeholder="Write something..."></textarea>
     <div id="translation" class="card runic"></div>
+
+    <div class="actions">
+      <button id="copyRunes" class="primary">
+        Copy Runic Message
+      </button>
+    </div>
+    <p id="copyStatus" aria-live="polite"></p>
     <p class="note">This is a learning
     transliterator, not a historically
     exact translation.</p>
@@ -63,5 +105,6 @@
 <script src="recognizer.js"></script>
 <script src="runic-english.js"></script>
 <script src="app.js"></script>
+<script src="rune-hall.js"></script>
 </body>
 </html>

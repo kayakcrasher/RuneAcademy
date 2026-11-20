@@ -1,114 +1,266 @@
 :root {
-  color-scheme:dark;
-  font-family:system-ui,sans-serif;
-  background:#101b18;
-  color:#f1e8d2;
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  background: #0b1110;
+  color: #eee7d8;
+  --gold: #d9ae68;
+  --muted: #a8b4aa;
+  --line: #465448;
+  --panel: #17231f;
 }
-* { box-sizing:border-box }
-body { margin:0 }
+
+* { box-sizing: border-box }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 50% 0%,
+      #293b31 0%, transparent 55%),
+    #0b1110;
+}
+
 header {
-  padding:22px 18px;
-  background:#172820;
-  border-bottom:1px solid #425445;
+  padding: 30px 20px 26px;
+  text-align: center;
+  background: linear-gradient(
+    180deg,#20342b,#111c18
+  );
+  border-bottom: 1px solid #66573d;
 }
+
 .brand {
-  color:#e7bf76;
-  font-size:25px;
-  font-weight:800;
+  font-size: clamp(28px,6vw,43px);
+  font-weight: 850;
+  letter-spacing: 1px;
+  color: var(--gold);
+  text-shadow: 0 2px 20px #b8915140;
 }
+
 small {
-  color:#9baea0;
-  letter-spacing:2px;
+  color: var(--muted);
+  letter-spacing: 3px;
+  font-size: 10px;
 }
+
 main {
-  max-width:760px;
-  margin:auto;
-  padding:18px;
+  max-width: 820px;
+  margin: auto;
+  padding: 20px 16px 60px;
 }
-nav,.actions {
-  display:flex;
-  gap:9px;
-  flex-wrap:wrap;
+
+nav {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 8px;
+  margin-bottom: 24px;
 }
+
 button {
-  background:#294235;
-  color:#f1e8d2;
-  border:1px solid #58705a;
-  padding:13px 17px;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:15px;
+  background: #26382f;
+  color: #f1e8d8;
+  border: 1px solid #50604e;
+  border-radius: 12px;
+  padding: 13px 15px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background .2s,
+    transform .2s, border-color .2s;
 }
-button.active {
-  background:#b89151;
-  color:#101b18;
-  font-weight:bold;
+
+button:active { transform: scale(.97) }
+
+button:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
 }
-h1 { color:#e7bf76 }
-p { line-height:1.5 }
-.panel { margin-top:26px }
-.hidden { display:none }
-.card {
-  background:#1b3028;
-  border:1px solid #52694e;
-  border-radius:18px;
-  padding:20px;
-  margin-top:18px;
+
+button.active,button.primary {
+  background: linear-gradient(
+    135deg,#e7c183,#b98d4e
+  );
+  color: #171b15;
+  border-color: #e8ca8f;
+  font-weight: 750;
 }
+
+h1,h2,h3 { color: var(--gold) }
+
+h1 {
+  font-size: clamp(24px,5vw,34px);
+  margin-bottom: 8px;
+}
+
+p { line-height: 1.6 }
+
+.panel { margin-top: 18px }
+.hidden { display: none !important }
+
+.card,.norse-card {
+  background: linear-gradient(
+    150deg,#203229,#14211d
+  );
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 18px;
+  box-shadow: 0 12px 30px #0004;
+}
+
+.card::before {
+  content: "ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ";
+  display: block;
+  text-align: center;
+  color: #927b51;
+  font-size: 12px;
+  letter-spacing: 6px;
+  margin-bottom: 12px;
+}
+
 #runeGrid {
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
 }
+
 .rune {
-  font-size:36px;
-  padding:15px 4px;
+  font-size: 37px;
+  min-height: 75px;
+  padding: 10px 4px;
+  background: linear-gradient(
+    145deg,#2a3d32,#17241e
+  );
+  border: 1px solid #4c5a4a;
+  border-radius: 13px;
 }
+
 .rune.selected {
-  border-color:#e7bf76;
-  background:#536047;
+  border-color: var(--gold);
+  background: #4b5039;
+  box-shadow: 0 0 0 1px #d9ae6855;
 }
+
 .target {
-  text-align:center;
-  font-size:90px;
-  color:#e7bf76;
+  text-align: center;
+  font-size: clamp(90px,18vw,130px);
+  color: var(--gold);
+  text-shadow: 0 0 28px #d9ae6833;
 }
+
 #sound {
-  text-align:center;
-  margin-bottom:15px;
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 18px;
 }
+
 canvas {
-  display:block;
-  width:100%;
-  max-width:320px;
-  height:auto;
-  margin:0 auto 18px;
-  background:#e7dfc9;
-  border-radius:14px;
-  touch-action:none;
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto 18px;
+  background: #e5dac2;
+  border: 3px solid #a58b5d;
+  border-radius: 14px;
+  touch-action: none;
 }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+}
+
 textarea {
-  width:100%;
-  min-height:110px;
-  padding:15px;
-  background:#21362c;
-  color:white;
-  border:1px solid #71816b;
-  border-radius:12px;
-  font-size:18px;
+  width: 100%;
+  min-height: 120px;
+  padding: 16px;
+  background: #101c17;
+  color: #f4e9d2;
+  border: 1px solid #69765e;
+  border-radius: 12px;
+  font-size: 17px;
 }
+
 .runic {
-  font-size:36px;
-  overflow-wrap:anywhere;
-  min-height:100px;
+  font-size: clamp(25px,6vw,39px);
+  overflow-wrap: anywhere;
+  min-height: 95px;
+  letter-spacing: 3px;
 }
+
 .note {
-  color:#b4b9aa;
-  font-size:14px;
+  color: var(--muted);
+  font-size: 13px;
 }
+
+#feedback {
+  text-align: center;
+  font-weight: 650;
+  color: var(--gold);
+}
+
+.progress-track {
+  height: 11px;
+  background: #0d1812;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid #52604c;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(
+    90deg,#8c9b61,#e0b66c
+  );
+  border-radius: 30px;
+  transition: width .3s;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 12px;
+  margin: 15px 0;
+}
+
+.stat {
+  background: #101e18;
+  padding: 16px;
+  border-radius: 13px;
+  text-align: center;
+  border: 1px solid #415443;
+}
+
+.stat strong {
+  display: block;
+  color: var(--gold);
+  font-size: 30px;
+}
+
+.stat span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+#runeGrid .mastered {
+  border-color: #bfa56a;
+  box-shadow: inset 0 -3px #bfa56a;
+}
+
 footer {
-  text-align:center;
-  color:#b89151;
-  padding:35px;
-  letter-spacing:10px;
+  text-align: center;
+  color: #a98a57;
+  padding: 30px;
+  letter-spacing: 9px;
+}
+
+@media (max-width:420px) {
+  main { padding: 15px 12px 45px }
+  .card { padding: 15px }
+  #runeGrid { gap: 7px }
+  .rune { min-height: 65px }
+  nav button { padding: 12px 5px }
 }
