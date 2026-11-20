@@ -1,0 +1,114 @@
+:root {
+  color-scheme:dark;
+  font-family:system-ui,sans-serif;
+  background:#101b18;
+  color:#f1e8d2;
+}
+* { box-sizing:border-box }
+body { margin:0 }
+header {
+  padding:22px 18px;
+  background:#172820;
+  border-bottom:1px solid #425445;
+}
+.brand {
+  color:#e7bf76;
+  font-size:25px;
+  font-weight:800;
+}
+small {
+  color:#9baea0;
+  letter-spacing:2px;
+}
+main {
+  max-width:760px;
+  margin:auto;
+  padding:18px;
+}
+nav,.actions {
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+}
+button {
+  background:#294235;
+  color:#f1e8d2;
+  border:1px solid #58705a;
+  padding:13px 17px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:15px;
+}
+button.active {
+  background:#b89151;
+  color:#101b18;
+  font-weight:bold;
+}
+h1 { color:#e7bf76 }
+p { line-height:1.5 }
+.panel { margin-top:26px }
+.hidden { display:none }
+.card {
+  background:#1b3028;
+  border:1px solid #52694e;
+  border-radius:18px;
+  padding:20px;
+  margin-top:18px;
+}
+#runeGrid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.rune {
+  font-size:36px;
+  padding:15px 4px;
+}
+.rune.selected {
+  border-color:#e7bf76;
+  background:#536047;
+}
+.target {
+  text-align:center;
+  font-size:90px;
+  color:#e7bf76;
+}
+#sound {
+  text-align:center;
+  margin-bottom:15px;
+}
+canvas {
+  display:block;
+  width:100%;
+  max-width:320px;
+  height:auto;
+  margin:0 auto 18px;
+  background:#e7dfc9;
+  border-radius:14px;
+  touch-action:none;
+}
+textarea {
+  width:100%;
+  min-height:110px;
+  padding:15px;
+  background:#21362c;
+  color:white;
+  border:1px solid #71816b;
+  border-radius:12px;
+  font-size:18px;
+}
+.runic {
+  font-size:36px;
+  overflow-wrap:anywhere;
+  min-height:100px;
+}
+.note {
+  color:#b4b9aa;
+  font-size:14px;
+}
+footer {
+  text-align:center;
+  color:#b89151;
+  padding:35px;
+  letter-spacing:10px;
+}

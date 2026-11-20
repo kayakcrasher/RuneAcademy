@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+ content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101b18">
+<title>Rune Academy</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand">ᚠ Rune Academy</div>
+  <small>ELDER FUTHARK · 24 RUNES</small>
+</header>
+
+<main>
+  <nav aria-label="Learning modes">
+    <button data-tab="learn" class="active">Learn</button>
+    <button data-tab="draw">Draw</button>
+    <button data-tab="spell">Spell</button>
+  </nav>
+
+  <section id="learn" class="panel">
+    <h1>Discover the Runes</h1>
+    <p>Learn the 24 characters of Elder Futhark.</p>
+    <div id="runeGrid"></div>
+    <article id="details" class="card"></article>
+  </section>
+
+  <section id="draw" class="panel hidden">
+    <h1>Rune Drawing</h1>
+    <p>Practice carving runes with your finger.</p>
+    <div class="card">
+      <div id="target" class="target"></div>
+      <div id="sound"></div>
+      <canvas id="pad" width="320" height="320"
+        aria-label="Rune drawing surface"></canvas>
+      <div class="actions">
+        <button id="clear">Clear</button>
+        <button id="check">Check</button>
+        <button id="next">Next Rune</button>
+      </div>
+      <p id="feedback" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section id="spell" class="panel hidden">
+    <h1>Runic Spelling Lab</h1>
+    <p>Experiment with modern English
+       approximations in Elder Futhark.</p>
+    <label for="english">Your text</label>
+    <textarea id="english"
+      placeholder="Write something..."></textarea>
+    <div id="translation" class="card runic"></div>
+    <p class="note">This is a learning
+    transliterator, not a historically
+    exact translation.</p>
+  </section>
+</main>
+
+<footer>ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</footer>
+<script src="app.js"></script>
+</body>
+</html>
