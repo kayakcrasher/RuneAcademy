@@ -129,6 +129,31 @@
       </button>
     </div>
     <p id="copyStatus" aria-live="polite"></p>
+
+    <div class="card" id="writingDesk">
+      <h2>ᚹ The Runic Writing Desk</h2>
+      <p>Tap runes to compose your own message.</p>
+
+      <label for="runeMessage">Your message</label>
+      <textarea id="runeMessage"
+        class="runic"
+        placeholder="ᚺᛖᛚᛚᛟ"
+        spellcheck="false"></textarea>
+
+      <div id="messageKeyboard"></div>
+
+      <div class="actions">
+        <button id="copyMessage" class="primary">
+          Copy Message
+        </button>
+        <button id="shareMessage">
+          Share Message
+        </button>
+      </div>
+      <p id="messageStatus"
+         aria-live="polite"></p>
+    </div>
+
     <p class="note">This is a learning
     transliterator, not a historically
     exact translation.</p>
@@ -154,6 +179,9 @@
         placeholder="Enter runes here..."
         rows="2"></textarea>
 
+
+      <h3>ᚠ Rune Keyboard</h3>
+      <div id="trialKeyboard"></div>
       <div class="actions">
         <button id="trialCheck" class="primary">
           Check Answer
@@ -177,5 +205,7 @@
 <script src="progression-ui.js"></script>
 <script src="trials.js"></script>
 <script src="trials-ui.js"></script>
+<script src="rune-keyboard.js"></script>
+<script src="writing-desk.js"></script>
 </body>
 </html>
