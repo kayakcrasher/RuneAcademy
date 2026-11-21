@@ -354,3 +354,81 @@ nav {
     font-size:24px;
   }
 }
+
+/* SMASH 007A — Visible writing keyboard */
+nav {
+  grid-template-columns:repeat(5,minmax(0,1fr));
+}
+
+.rune-keyboard button {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+}
+
+.key-rune {
+  display:block;
+  font-size:29px;
+  line-height:1.2;
+}
+
+.key-letter {
+  display:block;
+  font-size:11px;
+  color:#d8c8a7;
+  letter-spacing:.5px;
+}
+
+#write .card {
+  margin-top:12px;
+}
+
+@media(max-width:420px) {
+  nav button {
+    font-size:11px;
+    padding:12px 2px;
+  }
+  .key-rune { font-size:25px }
+  .key-letter { font-size:10px }
+}
+
+/* SMASH 007A — Visible writing keyboard */
+nav {
+  grid-template-columns:repeat(5,minmax(0,1fr));
+}
+
+.rune-keyboard button {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+}
+
+.key-rune {
+  display:block;
+  font-size:29px;
+  line-height:1.2;
+}
+
+.key-letter {
+  display:block;
+  font-size:11px;
+  color:#d8c8a7;
+  letter-spacing:.5px;
+}
+
+#write .card {
+  margin-top:12px;
+}
+
+@media(max-width:420px) {
+  nav button {
+    font-size:11px;
+    padding:12px 2px;
+  }
+  .key-rune { font-size:25px }
+  .key-letter { font-size:10px }
+}

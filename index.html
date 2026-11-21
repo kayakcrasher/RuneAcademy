@@ -86,7 +86,8 @@
   <nav aria-label="Learning modes">
     <button data-tab="learn" class="active">Learn</button>
     <button data-tab="draw">Draw</button>
-    <button data-tab="spell">Spell</button>
+    <button data-tab="write">ᚠ Write</button>
+    <button data-tab="spell">Convert</button>
     <button data-tab="trials">⚔️ Trials</button>
   </nav>
 
@@ -114,22 +115,10 @@
     </div>
   </section>
 
-  <section id="spell" class="panel hidden">
-    <h1>Runic Spelling Lab</h1>
-    <p>Experiment with modern English
-       approximations in Elder Futhark.</p>
-    <label for="english">Your text</label>
-    <textarea id="english"
-      placeholder="Write something..."></textarea>
-    <div id="translation" class="card runic"></div>
-
-    <div class="actions">
-      <button id="copyRunes" class="primary">
-        Copy Runic Message
-      </button>
-    </div>
-    <p id="copyStatus" aria-live="polite"></p>
-
+  <section id="write" class="panel hidden">
+    <h1>ᚠ Write in Runes</h1>
+    <p>Choose a rune, build your message,
+    and share it with friends.</p>
     <div class="card" id="writingDesk">
       <h2>ᚹ The Runic Writing Desk</h2>
       <p>Tap runes to compose your own message.</p>
@@ -153,6 +142,24 @@
       <p id="messageStatus"
          aria-live="polite"></p>
     </div>
+
+  </section>
+
+  <section id="spell" class="panel hidden">
+    <h1>Runic Spelling Lab</h1>
+    <p>Experiment with modern English
+       approximations in Elder Futhark.</p>
+    <label for="english">Your text</label>
+    <textarea id="english"
+      placeholder="Write something..."></textarea>
+    <div id="translation" class="card runic"></div>
+
+    <div class="actions">
+      <button id="copyRunes" class="primary">
+        Copy Runic Message
+      </button>
+    </div>
+    <p id="copyStatus" aria-live="polite"></p>
 
     <p class="note">This is a learning
     transliterator, not a historically

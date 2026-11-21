@@ -79,8 +79,18 @@ function mount(container,textarea) {
   }
 
   for(const [symbol,name,sound] of RUNES) {
-    key(symbol,()=>change(symbol),
+    const button=key(symbol,()=>change(symbol),
       `${name} (${sound})`);
+    button.textContent="";
+    const rune=document.createElement("span");
+    rune.className="key-rune";
+    rune.textContent=symbol;
+    const letter=document.createElement("span");
+    letter.className="key-letter";
+    letter.textContent={
+      "ᚠ":"F/V","ᚲ":"C/K","ᛃ":"J/Y"
+    }[symbol] || sound.toUpperCase();
+    button.append(rune,letter);
   }
 
   key("Space",()=>change(" "),"Insert space")
