@@ -43,6 +43,39 @@
          style="width:0%"></div>
   </div>
 
+
+  <div class="stat-row">
+    <div class="stat">
+      <strong id="playerXP">0</strong>
+      <span>Total XP</span>
+    </div>
+    <div class="stat">
+      <strong id="playerLevel">1</strong>
+      <span>Rune Level</span>
+    </div>
+    <div class="stat">
+      <strong id="playerStreak">0</strong>
+      <span>🔥 Day Streak</span>
+    </div>
+    <div class="stat">
+      <strong id="bestStreak">0</strong>
+      <span>Best Streak</span>
+    </div>
+  </div>
+
+  <p id="levelLabel">Level 1 · 0/100 XP</p>
+  <div class="progress-track"
+       role="progressbar"
+       aria-label="Level progress"
+       aria-valuemin="0"
+       aria-valuemax="100"
+       aria-valuenow="0"
+       id="levelTrack">
+    <div id="levelBar"
+         class="progress-fill"
+         style="width:0%"></div>
+  </div>
+
   <p>
     <button id="hallPractice" class="primary">
       Practice Next Rune
@@ -104,7 +137,9 @@
 <footer>ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</footer>
 <script src="recognizer.js"></script>
 <script src="runic-english.js"></script>
+<script src="progression.js"></script>
 <script src="app.js"></script>
 <script src="rune-hall.js"></script>
+<script src="progression-ui.js"></script>
 </body>
 </html>

@@ -89,6 +89,7 @@ let distance = 0;
 let previous = null;
 let strokes = [];
 let activeStroke = null;
+let attemptAwarded = false;
 
 function clearPad() {
   ctx.fillStyle = "#e7dfc9";
@@ -101,6 +102,7 @@ function clearPad() {
   previous = null;
   strokes = [];
   activeStroke = null;
+  attemptAwarded = false;
   feedback.textContent = "";
 }
 
@@ -156,9 +158,23 @@ document.querySelector("#check").onclick = () => {
     strokes,current
   );
 
-  feedback.textContent = result.passed
-    ? `ᚠ Success! Accuracy: ${result.score}%`
-    : `Accuracy: ${result.score}%. Try again!`;
+  if (result.passed && !attemptAwarded) {
+    attemptAwarded = true;
+    const reward = RuneProgress.award(
+      current,result.score
+    );
+    feedback.textContent =
+      `ᚠ Success! ${result.score}% · +${reward.awarded} XP`;
+    document.dispatchEvent(
+      new Event("rune-progress")
+    );
+  } else if (result.passed) {
+    feedback.textContent =
+      `ᚠ Success! ${result.score}% · XP already earned`;
+  } else {
+    feedback.textContent =
+      `Accuracy: ${result.score}%. Try again!`;
+  }
 
   if (result.passed) {
     const saved = JSON.parse(
