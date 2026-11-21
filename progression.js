@@ -36,6 +36,13 @@ function load() {
         ? [...new Set(raw.mastered.filter(
             x=>Number.isInteger(x) && x>=0 && x<24
           ))] : [],
+      trialDay:typeof raw.trialDay==="string"
+        ? raw.trialDay : null,
+      trialCompleted:Array.isArray(raw.trialCompleted)
+        ? [...new Set(raw.trialCompleted.filter(
+          x=>Number.isInteger(x) && x>=0 && x<3
+        ))] : [],
+      trialBonus:raw.trialBonus===true,
       dailyAwards:raw.dailyAwards &&
         typeof raw.dailyAwards==="object" &&
         !Array.isArray(raw.dailyAwards)

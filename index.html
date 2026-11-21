@@ -87,6 +87,7 @@
     <button data-tab="learn" class="active">Learn</button>
     <button data-tab="draw">Draw</button>
     <button data-tab="spell">Spell</button>
+    <button data-tab="trials">⚔️ Trials</button>
   </nav>
 
   <section id="learn" class="panel">
@@ -132,6 +133,39 @@
     transliterator, not a historically
     exact translation.</p>
   </section>
+
+  <section id="trials" class="panel hidden">
+    <h1>⚔️ The Daily Trials</h1>
+    <p>Prove your knowledge of Runic English.</p>
+
+    <div class="card">
+      <h2 id="trialHeading">Daily Challenge</h2>
+      <p id="trialProgress">0 of 3 completed</p>
+      <div class="progress-track">
+        <div id="trialBar" class="progress-fill"
+             style="width:0%"></div>
+      </div>
+
+      <p>Write this word in runes:</p>
+      <div id="trialWord" class="target"></div>
+
+      <label for="trialAnswer">Your runic answer</label>
+      <textarea id="trialAnswer"
+        placeholder="Enter runes here..."
+        rows="2"></textarea>
+
+      <div class="actions">
+        <button id="trialCheck" class="primary">
+          Check Answer
+        </button>
+        <button id="trialNext">Next Trial</button>
+        <button id="trialHint">Show Hint</button>
+      </div>
+
+      <p id="trialFeedback" aria-live="polite"></p>
+    </div>
+  </section>
+
 </main>
 
 <footer>ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</footer>
@@ -141,5 +175,7 @@
 <script src="app.js"></script>
 <script src="rune-hall.js"></script>
 <script src="progression-ui.js"></script>
+<script src="trials.js"></script>
+<script src="trials-ui.js"></script>
 </body>
 </html>
