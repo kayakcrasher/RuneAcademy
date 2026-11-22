@@ -117,30 +117,107 @@ function total(level) {
     LEVELS.reduce((n,l)=>n+BANK[l].length,0);
 }
 
+
+const SWAPS=[
+  ["hot","cold","warm","bright"],
+  ["fast","slow","strong","tired"],
+  ["dark","bright","clear","cloudy"],
+  ["small","large","tall","old"],
+  ["happy","sad","hungry","tired"],
+  ["green","red","white","black"],
+  ["open","closed","broken","locked"],
+  ["deep","shallow","cold","clear"],
+  ["long","short","narrow","wide"],
+  ["high","low","steep","flat"],
+  ["calm","rough","deep","cold"],
+  ["hungry","tired","angry","happy"],
+  ["clever","quick","quiet","young"],
+  ["north","south","east","west"],
+  ["morning","evening","winter","summer"],
+  ["forest","village","valley","mountain"],
+  ["river","road","stream","lake"],
+  ["horse","wolf","bear","dog"],
+  ["warrior","farmer","hunter","traveler"],
+  ["sun","moon","fire","storm"],
+  ["wooden","iron","stone","silver"],
+  ["before","after","during","near"],
+  ["young","old","weary","brave"],
+  ["quiet","noisy","silent","busy"],
+  ["golden","silver","pale","bright"]
+];
+
+function alternatives(sentence) {
+  const found=new Set();
+
+  for(const group of SWAPS) {
+    for(const word of group) {
+      const pattern=new RegExp(
+        "\\b"+word+"\\b","i"
+      );
+      if(!pattern.test(sentence)) continue;
+
+      for(const replacement of group) {
+        if(replacement===word) continue;
+        const changed=sentence.replace(
+          pattern,replacement
+        );
+        if(changed!==sentence)
+          found.add(changed);
+      }
+    }
+  }
+
+  return [...found];
+}
+
+function similarity(a,b) {
+  const words=new Set(
+    a.toLowerCase().split(/\s+/)
+  );
+  return b.toLowerCase().split(/\s+/)
+    .filter(w=>words.has(w)).length;
+}
+
 function question(index,level="beginner") {
   const list=BANK[level];
   if(!list || !Number.isInteger(index) ||
-     index<0 || index>=list.length) return null;
+     index<0 || index>=list.length)
+    return null;
 
   const english=list[index];
-  const indices=[index];
-  let step=1;
+  const choices=[english];
 
-  while(indices.length<4) {
-    const next=(index+step)%list.length;
-    if(!indices.includes(next)) indices.push(next);
-    step++;
+  for(const candidate of alternatives(english)) {
+    if(!choices.includes(candidate))
+      choices.push(candidate);
+    if(choices.length===4) break;
   }
 
+  if(choices.length<4) {
+    const similar=list
+      .filter(s=>s!==english)
+      .sort((a,b)=>
+        similarity(english,b)-
+        similarity(english,a)
+      );
+
+    for(const candidate of similar) {
+      if(!choices.includes(candidate))
+        choices.push(candidate);
+      if(choices.length===4) break;
+    }
+  }
+
+  // Vary the correct answer's position.
   const shift=index%4;
-  const rotated=indices.slice(shift)
-    .concat(indices.slice(0,shift));
+  const options=choices.slice(shift)
+    .concat(choices.slice(0,shift));
 
   return {
     index,level,english,
     runic:RunicEnglish.encode(english),
-    options:rotated.map(i=>list[i]),
-    answer:rotated.indexOf(index)
+    options,
+    answer:options.indexOf(english)
   };
 }
 
@@ -157,14 +234,53 @@ function session(level="beginner",count=10) {
 
   for(let i=indices.length-1;i>0;i--) {
     const j=Math.floor(Math.random()*(i+1));
-    [indices[i],indices[j]]=[indices[j],indices[i]];
+    [indices[i],indices[j]]=
+      [indices[j],indices[i]];
   }
 
-  return indices.slice(0,Math.min(count,indices.length))
+  return indices
+    .slice(0,Math.min(count,indices.length))
     .map(i=>question(i,level));
 }
 
-const API={BANK,LEVELS,total,question,check,session};
+const SCORE_KEY="runeClozeScoresV1";
+
+function highScores() {
+  try {
+    const raw=JSON.parse(
+      localStorage.getItem(SCORE_KEY)||"{}"
+    );
+    if(!raw || typeof raw!=="object")
+      return {};
+    return raw;
+  } catch {
+    return {};
+  }
+}
+
+function saveScore(level,correct,total) {
+  if(!BANK[level] ||
+     !Number.isInteger(correct) ||
+     !Number.isInteger(total) ||
+     total<=0 || correct<0 ||
+     correct>total) return false;
+
+  const percent=Math.round(
+    correct/total*100
+  );
+
+  const scores=highScores();
+  if(percent<=(scores[level]??-1))
+    return false;
+
+  scores[level]=percent;
+  localStorage.setItem(
+    SCORE_KEY,JSON.stringify(scores)
+  );
+  return true;
+}
+
+const API={BANK,LEVELS,total,question,check,session,highScores,saveScore};
 root.RuneCloze=API;
 
 if(typeof module!=="undefined"&&module.exports)

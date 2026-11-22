@@ -2,18 +2,42 @@
 "use strict";
 
 const $=id=>document.getElementById(id);
-
+let questions=[];
 let round=0;
 let score=0;
 let answered=false;
+let finished=false;
+
+function showBest() {
+  const level=$("clozeLevel").value;
+  const best=RuneCloze.highScores()[level];
+  $("clozeBest").textContent=
+    best===undefined
+      ?"Best score: Not yet recorded"
+      :`Best score: ${best}%`;
+}
+
+function start() {
+  const level=$("clozeLevel").value;
+  questions=RuneCloze.session(level,10);
+  round=0;
+  score=0;
+  answered=false;
+  finished=false;
+
+  $("clozeLibrary").textContent=
+    `${RuneCloze.total(level)} sentences available`;
+
+  showBest();
+  render();
+}
 
 function render() {
-  const q=RuneCloze.question(round);
+  const q=questions[round];
   answered=false;
 
   $("clozeProgress").textContent=
-    `Sentence ${round+1} of ${RuneCloze.total()}`;
-
+    `Sentence ${round+1} of ${questions.length}`;
   $("clozeRunes").textContent=q.runic;
   $("clozeFeedback").textContent="";
   $("clozeScore").textContent=
@@ -21,7 +45,7 @@ function render() {
 
   $("clozeNext").disabled=true;
   $("clozeNext").textContent=
-    round===RuneCloze.total()-1
+    round===questions.length-1
       ?"Finish Challenge":"Next Sentence";
 
   const holder=$("clozeOptions");
@@ -37,8 +61,7 @@ function render() {
       if(answered) return;
       answered=true;
 
-      const correct=RuneCloze.check(round,i);
-
+      const correct=i===q.answer;
       if(correct) score++;
 
       $("clozeFeedback").textContent=correct
@@ -64,33 +87,43 @@ function render() {
   });
 }
 
-$("clozeNext").addEventListener("click",()=>{
-  if(!answered) return;
+function finish() {
+  finished=true;
+  const level=$("clozeLevel").value;
+  const improved=RuneCloze.saveScore(
+    level,score,questions.length
+  );
 
-  if(round===RuneCloze.total()-1) {
-    $("clozeOptions").replaceChildren();
-    $("clozeRunes").textContent="ᚠ ᚢ ᚦ";
-    $("clozeProgress").textContent="Challenge complete!";
-    $("clozeFeedback").textContent=
-      `Final score: ${score} / ${RuneCloze.total()}`;
-    $("clozeScore").textContent=
-      `${Math.round(score/RuneCloze.total()*100)}% accuracy`;
-    $("clozeNext").textContent="Play Again";
-    $("clozeNext").disabled=false;
-    answered=true;
-    round=RuneCloze.total();
+  $("clozeOptions").replaceChildren();
+  $("clozeRunes").textContent="ᚠ ᚢ ᚦ";
+  $("clozeProgress").textContent="Challenge complete!";
+  $("clozeFeedback").textContent=
+    `Final score: ${score} / ${questions.length}`;
+  $("clozeScore").textContent=
+    `${Math.round(score/questions.length*100)}% accuracy`+
+    (improved?" · New personal best!":"");
+
+  $("clozeNext").textContent="Play Again";
+  $("clozeNext").disabled=false;
+  showBest();
+}
+
+$("clozeNext").addEventListener("click",()=>{
+  if(finished) {
+    start();
     return;
   }
 
-  if(round===RuneCloze.total()) {
-    round=0;
-    score=0;
-  } else {
-    round++;
-  }
+  if(!answered) return;
 
-  render();
+  if(round===questions.length-1)
+    finish();
+  else {
+    round++;
+    render();
+  }
 });
 
-render();
+$("clozeLevel").addEventListener("change",start);
+start();
 })();

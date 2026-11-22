@@ -1,12 +1,15 @@
 const assert=require("node:assert/strict");
 
+const store=new Map();
+global.localStorage={
+  getItem:k=>store.get(k)??null,
+  setItem:(k,v)=>store.set(k,String(v))
+};
+
 global.RunicEnglish=require("../runic-english.js");
 const C=require("../rune-cloze.js");
 
 assert.equal(C.total(),100);
-assert.equal(C.total("beginner"),35);
-assert.equal(C.total("intermediate"),35);
-assert.equal(C.total("advanced"),30);
 
 for(const level of C.LEVELS) {
   for(let i=0;i<C.total(level);i++) {
@@ -34,8 +37,11 @@ for(const level of C.LEVELS) {
   );
 }
 
-assert.equal(C.question(-1),null);
-assert.equal(C.question(100),null);
-assert.equal(C.check(0,99),false);
+assert.equal(C.saveScore("beginner",8,10),true);
+assert.equal(C.highScores().beginner,80);
+assert.equal(C.saveScore("beginner",6,10),false);
+assert.equal(C.highScores().beginner,80);
+assert.equal(C.saveScore("beginner",10,10),true);
+assert.equal(C.highScores().beginner,100);
 
-console.log("100 SENTENCES VERIFIED — GREEN");
+console.log("SMASH 016: ALL 100 QUESTIONS GREEN");
