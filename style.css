@@ -725,3 +725,72 @@ nav {
 }
 .journey-locked,
 .journey-complete {color:var(--gold)}
+
+/* SMASH 013 — Examination Hall */
+
+#examHall {
+  margin-top:20px;
+}
+
+#hallSeals {
+  text-align:center;
+  color:var(--gold);
+  font-size:14px;
+}
+
+#examSeals {
+  display:grid;
+  gap:10px;
+  margin:16px 0;
+}
+
+.exam-seal {
+  display:grid;
+  gap:8px;
+  padding:14px;
+  border:1px solid #967a4d;
+  border-radius:12px;
+  background:#192b22;
+}
+
+.exam-seal strong {
+  color:var(--gold);
+  font-size:18px;
+}
+
+.exam-seal small {
+  color:#c9bda4;
+}
+
+.exam-seal button:disabled {
+  opacity:.4;
+}
+
+#examQuestions {
+  margin-top:20px;
+}
+
+.exam-rune {
+  font-size:90px;
+  text-align:center;
+  color:var(--gold);
+  padding:16px;
+}
+
+.exam-options {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+}
+
+.exam-options button {
+  min-height:56px;
+  padding:8px;
+  font-size:16px;
+}
+
+#examFeedback {
+  color:var(--gold);
+  font-weight:bold;
+  text-align:center;
+}
