@@ -89,6 +89,7 @@
     <button data-tab="write">ᚠ Write</button>
     <button data-tab="spell">Convert</button>
     <button data-tab="trials">⚔️ Trials</button>
+    <button data-tab="honors">🏆 Honors</button>
   </nav>
 
   <section id="learn" class="panel">
@@ -201,6 +202,26 @@
     </div>
   </section>
 
+
+  <section id="honors" class="panel hidden">
+    <h1>ᛟ Hall of Honors</h1>
+    <p>Earn achievements and claim your title.</p>
+
+    <div class="norse-card">
+      <p class="note">YOUR CURRENT TITLE</p>
+      <h2 id="currentTitle">Rune Wanderer</h2>
+      <label for="titlePicker">
+        Choose an unlocked title
+      </label>
+      <select id="titlePicker"
+        aria-label="Choose your title"></select>
+      <p id="honorsCount">0 of 6 unlocked</p>
+    </div>
+
+    <div id="achievementGrid"
+      class="achievement-grid"></div>
+  </section>
+
 </main>
 
 <footer>ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</footer>
@@ -214,5 +235,7 @@
 <script src="trials-ui.js"></script>
 <script src="rune-keyboard.js"></script>
 <script src="writing-desk.js"></script>
+<script src="achievements.js"></script>
+<script src="achievements-ui.js"></script>
 </body>
 </html>

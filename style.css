@@ -468,3 +468,86 @@ nav {
     min-height:54px;
   }
 }
+
+/* SMASH 009 — Hall of Honors */
+
+nav {
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.achievement-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:18px;
+}
+
+.achievement-card {
+  padding:17px 12px;
+  text-align:center;
+  background:linear-gradient(
+    150deg,#25392f,#101b17
+  );
+  border:1px solid #776445;
+  border-radius:16px;
+}
+
+.achievement-card.locked {
+  opacity:.57;
+  filter:grayscale(.65);
+}
+
+.achievement-card.unlocked {
+  border-color:#d9ae68;
+  box-shadow:0 0 18px #d9ae6818;
+}
+
+.achievement-symbol {
+  font-size:55px;
+  color:var(--gold);
+  line-height:1.5;
+}
+
+.achievement-card h3 {
+  font-size:16px;
+  margin:6px 0;
+}
+
+.achievement-card p {
+  color:var(--muted);
+  font-size:13px;
+}
+
+.achievement-card small {
+  display:block;
+  margin-top:12px;
+  letter-spacing:0;
+}
+
+#currentTitle {
+  font-size:clamp(24px,6vw,36px);
+  text-align:center;
+}
+
+#titlePicker {
+  width:100%;
+  margin:12px 0;
+  padding:14px;
+  border:1px solid #a78b5b;
+  border-radius:12px;
+  background:#101c17;
+  color:#e8c78e;
+  font-size:16px;
+}
+
+#honorsCount {
+  text-align:center;
+  color:var(--gold);
+}
+
+@media(max-width:420px) {
+  .achievement-grid { gap:8px }
+  .achievement-card { padding:13px 8px }
+  .achievement-symbol { font-size:43px }
+  .achievement-card h3 { font-size:14px }
+}
