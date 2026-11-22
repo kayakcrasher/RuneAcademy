@@ -126,7 +126,23 @@
         <option value="intermediate">Intermediate</option>
         <option value="advanced">Advanced</option>
       </select>
+      
+      <label for="clozeMode">Practice mode</label>
+      <select id="clozeMode">
+        <option value="all">All sentences</option>
+        <option value="unmastered">
+          Practice Unmastered
+        </option>
+      </select>
+
+      <div id="clozeCodex" class="card">
+        <h3>ᛟ Reading Codex</h3>
+        <p id="clozeCodexTotal"></p>
+        <div id="clozeCodexLevels"></div>
+      </div>
+
       <p id="clozeLibrary"></p>
+
       <p id="clozeBest"></p>
 <p id="clozeProgress"></p>
 
@@ -316,6 +332,7 @@
 <script src="rune-exams.js"></script>
 <script src="rune-exams-ui.js"></script>
 <script src="rune-cloze.js"></script>
+<script src="rune-codex.js"></script>
 <script src="rune-cloze-ui.js"></script>
 </body>
 </html>

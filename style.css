@@ -844,3 +844,42 @@ nav {
 #clozeNext:disabled {
   opacity:.45;
 }
+
+/* SMASH 018 — Reading Codex */
+
+#clozeMode {
+  display:block;
+  width:100%;
+  padding:13px;
+  margin:10px 0;
+  background:#101c17;
+  color:#f4e9d2;
+  border:1px solid #967a4d;
+  border-radius:12px;
+  font-size:16px;
+}
+
+#clozeCodex {
+  padding:15px;
+  margin:14px 0;
+}
+
+#clozeCodex h3 {
+  margin-top:0;
+}
+
+#clozeCodexLevels {
+  display:grid;
+  gap:5px;
+}
+
+#clozeCodexLevels p {
+  margin:3px 0;
+  text-transform:capitalize;
+  color:var(--muted);
+}
+
+#clozeCodexTotal {
+  color:var(--gold);
+  font-weight:700;
+}

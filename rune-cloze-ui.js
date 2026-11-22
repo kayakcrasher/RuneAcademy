@@ -8,6 +8,24 @@ let score=0;
 let answered=false;
 let finished=false;
 
+function renderCodex() {
+  const overall=RuneCodex.progress();
+
+  $("clozeCodexTotal").textContent=
+    `${overall.mastered} of ${overall.total} sentences mastered`;
+
+  const holder=$("clozeCodexLevels");
+  holder.replaceChildren();
+
+  for(const level of RuneCloze.LEVELS) {
+    const p=RuneCodex.progress(level);
+    const item=document.createElement("p");
+    item.textContent=
+      `${level}: ${p.mastered}/${p.total} (${p.percent}%)`;
+    holder.append(item);
+  }
+}
+
 function showBest() {
   const level=$("clozeLevel").value;
   const best=RuneCloze.highScores()[level];
@@ -19,7 +37,12 @@ function showBest() {
 
 function start() {
   const level=$("clozeLevel").value;
-  questions=RuneCloze.session(level,10);
+  const unmastered=
+    $("clozeMode").value==="unmastered";
+
+  questions=RuneCodex.session(
+    level,10,unmastered
+  );
   round=0;
   score=0;
   answered=false;
@@ -29,6 +52,22 @@ function start() {
     `${RuneCloze.total(level)} sentences available`;
 
   showBest();
+  renderCodex();
+
+  if(questions.length===0) {
+    finished=true;
+    $("clozeProgress").textContent=
+      "All sentences mastered!";
+    $("clozeRunes").textContent="ᛟ";
+    $("clozeOptions").replaceChildren();
+    $("clozeFeedback").textContent=
+      "Choose another difficulty or All sentences.";
+    $("clozeScore").textContent="";
+    $("clozeNext").disabled=false;
+    $("clozeNext").textContent="Play Again";
+    return;
+  }
+
   render();
 }
 
@@ -62,7 +101,13 @@ function render() {
       answered=true;
 
       const correct=i===q.answer;
-      if(correct) score++;
+      if(correct) {
+        score++;
+        RuneCodex.record(
+          q.level,q.index,true
+        );
+        renderCodex();
+      }
 
       $("clozeFeedback").textContent=correct
         ?"ᚠ Correct! Well read!"
@@ -94,9 +139,11 @@ function finish() {
     level,score,questions.length
   );
 
-  const reward=RuneProgress.awardReading(
-    level,score,questions.length
-  );
+  const reward=questions.length===10
+    ? RuneProgress.awardReading(
+        level,score,questions.length
+      )
+    : {awarded:0};
 
   $("clozeOptions").replaceChildren();
   $("clozeRunes").textContent="ᚠ ᚢ ᚦ";
@@ -131,5 +178,6 @@ $("clozeNext").addEventListener("click",()=>{
 });
 
 $("clozeLevel").addEventListener("change",start);
+$("clozeMode").addEventListener("change",start);
 start();
 })();
