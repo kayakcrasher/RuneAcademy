@@ -18,6 +18,7 @@
 
 <section id="runeHall" class="norse-card">
   <h2>ᛟ The Rune Hall</h2>
+<p id="hallTitle">Rune Wanderer</p>
   <p>Your journey through the Elder Futhark.</p>
 
   <div class="stat-row">
@@ -85,12 +86,21 @@
 
   <nav aria-label="Learning modes">
     <button data-tab="learn" class="active">Learn</button>
+    <button data-tab="journey">Journey</button>
     <button data-tab="draw">Draw</button>
     <button data-tab="write">ᚠ Write</button>
     <button data-tab="spell">Convert</button>
     <button data-tab="trials">⚔️ Trials</button>
     <button data-tab="honors">🏆 Honors</button>
   </nav>
+
+
+  <section id="journey" class="panel hidden">
+    <h1>ᛟ The Rune Journey</h1>
+    <p>Master the three ættir of Elder Futhark.</p>
+    <p id="journeySummary" aria-live="polite"></p>
+    <div id="journeyPaths"></div>
+  </section>
 
   <section id="learn" class="panel">
     <h1>Discover the Runes</h1>
@@ -260,5 +270,7 @@
 <script src="achievements-ui.js"></script>
 <script src="rune-lessons.js"></script>
 <script src="rune-lessons-ui.js"></script>
+<script src="rune-journey.js"></script>
+<script src="rune-journey-ui.js"></script>
 </body>
 </html>

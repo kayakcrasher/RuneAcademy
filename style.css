@@ -677,3 +677,51 @@ nav {
 #lessonPractice:disabled {
   opacity:.45;
 }
+
+/* SMASH 010 repair — Journey */
+nav {
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+#hallTitle {
+  color:var(--gold);
+  font-weight:700;
+  text-align:center;
+}
+.journey-card {
+  background:#17271f;
+  border:1px solid #967a4d;
+  border-radius:16px;
+  padding:14px;
+  margin:16px 0;
+}
+.journey-card h2 {color:var(--gold)}
+.journey-runes {
+  display:grid;
+  gap:8px;
+  margin-top:16px;
+}
+.journey-rune {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  padding:10px;
+  background:#21342a;
+  border-radius:10px;
+}
+.journey-info {
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+.journey-info small {font-size:11px}
+.journey-actions {
+  display:flex;
+  gap:5px;
+}
+.journey-actions button {
+  padding:9px 7px;
+  font-size:12px;
+}
+.journey-locked,
+.journey-complete {color:var(--gold)}
