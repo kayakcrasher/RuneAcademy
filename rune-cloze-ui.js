@@ -26,6 +26,17 @@ function renderCodex() {
   }
 }
 
+function renderForge() {
+  const stats=RuneMemoryForge.summary();
+  const level=$("clozeLevel").value;
+  const count=RuneMemoryForge.due(level).length;
+
+  $("forgeStatus").textContent=
+    `ᛗ Memory Forge: ${count} due in ${level} · `+
+    `${stats.learned} learned overall · `+
+    `${stats.reviewedToday} reviewed today`;
+}
+
 function showBest() {
   const level=$("clozeLevel").value;
   const best=RuneCloze.highScores()[level];
@@ -40,9 +51,11 @@ function start() {
   const unmastered=
     $("clozeMode").value==="unmastered";
 
-  questions=RuneCodex.session(
-    level,10,unmastered
-  );
+  const review=$("clozeMode").value==="review";
+
+  questions=review
+    ?RuneMemoryForge.session(level,10)
+    :RuneCodex.session(level,10,unmastered);
   round=0;
   score=0;
   answered=false;
@@ -53,15 +66,20 @@ function start() {
 
   showBest();
   renderCodex();
+  renderForge();
 
   if(questions.length===0) {
     finished=true;
     $("clozeProgress").textContent=
-      "All sentences mastered!";
+      $("clozeMode").value==="review"
+        ?"No reviews due right now!"
+        :"All sentences mastered!";
     $("clozeRunes").textContent="ᛟ";
     $("clozeOptions").replaceChildren();
     $("clozeFeedback").textContent=
-      "Choose another difficulty or All sentences.";
+      $("clozeMode").value==="review"
+        ?"Come back when your next review is due."
+        :"Choose another difficulty or All sentences.";
     $("clozeScore").textContent="";
     $("clozeNext").disabled=false;
     $("clozeNext").textContent="Play Again";
@@ -109,6 +127,11 @@ function render() {
         renderCodex();
       }
 
+      RuneMemoryForge.record(
+        q.level,q.index,correct
+      );
+      renderForge();
+
       $("clozeFeedback").textContent=correct
         ?"ᚠ Correct! Well read!"
         :`Not quite. Answer: ${q.english}`;
@@ -135,11 +158,12 @@ function render() {
 function finish() {
   finished=true;
   const level=$("clozeLevel").value;
-  const improved=RuneCloze.saveScore(
+  const review=$("clozeMode").value==="review";
+  const improved=!review && RuneCloze.saveScore(
     level,score,questions.length
   );
 
-  const reward=questions.length===10
+  const reward=!review && questions.length===10
     ? RuneProgress.awardReading(
         level,score,questions.length
       )
