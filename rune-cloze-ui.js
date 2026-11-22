@@ -94,6 +94,10 @@ function finish() {
     level,score,questions.length
   );
 
+  const reward=RuneProgress.awardReading(
+    level,score,questions.length
+  );
+
   $("clozeOptions").replaceChildren();
   $("clozeRunes").textContent="ᚠ ᚢ ᚦ";
   $("clozeProgress").textContent="Challenge complete!";
@@ -101,11 +105,13 @@ function finish() {
     `Final score: ${score} / ${questions.length}`;
   $("clozeScore").textContent=
     `${Math.round(score/questions.length*100)}% accuracy`+
-    (improved?" · New personal best!":"");
+    (improved?" · New personal best!":"")+
+    (reward.awarded?` · +${reward.awarded} XP`:"");
 
   $("clozeNext").textContent="Play Again";
   $("clozeNext").disabled=false;
   showBest();
+  document.dispatchEvent(new Event("rune-cloze"));
 }
 
 $("clozeNext").addEventListener("click",()=>{

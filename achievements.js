@@ -45,6 +45,30 @@ const BADGES=Object.freeze([
     metric:"trial"
   },
   {
+    id:"reader",
+    symbol:"ᚱ",
+    name:"Rune Reader",
+    title:"Rune Reader",
+    goal:70,
+    metric:"clozeBeginner"
+  },
+  {
+    id:"interpreter",
+    symbol:"ᛖ",
+    name:"Rune Interpreter",
+    title:"Rune Interpreter",
+    goal:80,
+    metric:"clozeIntermediate"
+  },
+  {
+    id:"linguist",
+    symbol:"ᛟ",
+    name:"Runic Linguist",
+    title:"Runic Linguist",
+    goal:90,
+    metric:"clozeAdvanced"
+  },
+  {
     id:"scholar",
     symbol:"ᛇ",
     name:"Runic Scholar",
@@ -73,7 +97,19 @@ function metrics() {
     p.mastered.includes(i)
   ).length;
 
+  let scores={};
+  try {
+    const raw=JSON.parse(
+      localStorage.getItem("runeClozeScoresV1")||"{}"
+    );
+    if(raw && typeof raw==="object" &&
+       !Array.isArray(raw)) scores=raw;
+  } catch {}
+
   return {
+    clozeBeginner:Number(scores.beginner)||0,
+    clozeIntermediate:Number(scores.intermediate)||0,
+    clozeAdvanced:Number(scores.advanced)||0,
     mastered,
     streak:p.bestStreak,
     trial:p.trialBonus===true ? 1:0,

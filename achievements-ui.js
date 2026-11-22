@@ -88,6 +88,7 @@ document.addEventListener(
   "rune-progress",render
 );
 
+document.addEventListener("rune-cloze",render);
 window.addEventListener("storage",render);
 
 render();

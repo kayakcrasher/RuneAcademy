@@ -127,6 +127,39 @@ function award(index,score,date=new Date()) {
   return {awarded:earned,state:data};
 }
 
+
+function awardReading(level,correct,total,date=new Date()) {
+  if(!["beginner","intermediate","advanced"].includes(level) ||
+     !Number.isInteger(correct) ||
+     !Number.isInteger(total) ||
+     total!==10 || correct<7 || correct>total) {
+    return {awarded:0,state:load()};
+  }
+
+  const data=load();
+  const today=dateKey(date);
+  const key=`${today}:reading:${level}`;
+
+  if(data.dailyAwards[key])
+    return {awarded:0,state:data};
+
+  data.dailyAwards={
+    ...Object.fromEntries(
+      Object.entries(data.dailyAwards)
+        .filter(([k])=>k.startsWith(today+":"))
+    ),
+    [key]:true
+  };
+
+  data.xp+=20;
+  save(data);
+
+  if(typeof document!=="undefined")
+    document.dispatchEvent(new Event("rune-progress"));
+
+  return {awarded:20,state:data};
+}
+
 function snapshot(date=new Date()) {
   const data=load();
   const today=dateKey(date);
@@ -144,7 +177,7 @@ function snapshot(date=new Date()) {
 }
 
 const API={
-  load,award,snapshot,dateKey,level,empty
+  load,award,awardReading,snapshot,dateKey,level,empty
 };
 
 root.RuneProgress=API;
