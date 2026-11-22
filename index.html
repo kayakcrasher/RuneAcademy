@@ -97,6 +97,27 @@
     <p>Learn the 24 characters of Elder Futhark.</p>
     <div id="runeGrid"></div>
     <article id="details" class="card"></article>
+
+    <article id="lessonCard" class="card">
+      <p class="note">INTERACTIVE LESSON</p>
+      <div id="lessonSymbol" class="target"></div>
+      <h2 id="lessonName"></h2>
+      <p id="lessonMeaning"></p>
+      <p id="lessonShape"></p>
+      <p id="lessonAett"></p>
+
+      <h3>What is this rune's sound value?</h3>
+      <div id="lessonOptions"
+           class="lesson-options"></div>
+      <p id="lessonFeedback"
+         aria-live="polite"></p>
+
+      <button id="lessonPractice"
+        class="primary" disabled>
+        Practice Drawing
+      </button>
+    </article>
+
   </section>
 
   <section id="draw" class="panel hidden">
@@ -237,5 +258,7 @@
 <script src="writing-desk.js"></script>
 <script src="achievements.js"></script>
 <script src="achievements-ui.js"></script>
+<script src="rune-lessons.js"></script>
+<script src="rune-lessons-ui.js"></script>
 </body>
 </html>

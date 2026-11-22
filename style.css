@@ -634,3 +634,46 @@ nav {
   .achievement-symbol { font-size:43px }
   .achievement-card h3 { font-size:14px }
 }
+
+/* SMASH 011 — Interactive Lessons */
+#lessonCard {
+  margin-top:16px;
+}
+
+#lessonSymbol {
+  font-size:clamp(70px,20vw,110px);
+  color:var(--gold);
+  text-align:center;
+}
+
+#lessonName {
+  text-align:center;
+}
+
+.lesson-options {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin:16px 0;
+}
+
+.lesson-options button {
+  min-height:52px;
+  font-size:17px;
+  border:1px solid #b99a61;
+  border-radius:12px;
+}
+
+#lessonFeedback {
+  color:var(--gold);
+  font-weight:700;
+  min-height:24px;
+}
+
+#lessonPractice {
+  width:100%;
+}
+
+#lessonPractice:disabled {
+  opacity:.45;
+}
