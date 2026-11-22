@@ -88,6 +88,7 @@
   <nav aria-label="Learning modes">
     <button data-tab="learn" class="active">Learn</button>
     <button data-tab="journey">Journey</button>
+    <button data-tab="cloze">ᚠ Cloze</button>
     <button data-tab="draw">Draw</button>
     <button data-tab="write">ᚠ Write</button>
     <button data-tab="spell">Convert</button>
@@ -109,6 +110,27 @@
       <p id="examFeedback" aria-live="polite"></p>
     </section>
 
+  </section>
+
+
+  <section id="cloze" class="panel hidden">
+    <h1>ᚠ Rune Cloze</h1>
+    <p>Read the runes and choose the
+       matching English sentence.</p>
+
+    <article class="card">
+      <p id="clozeProgress"></p>
+      <div id="clozeRunes" class="cloze-runes"></div>
+      <h3>What does this sentence say?</h3>
+      <div id="clozeOptions"></div>
+      <p id="clozeFeedback"
+         aria-live="polite"></p>
+      <button id="clozeNext"
+        class="primary" disabled>
+        Next Sentence
+      </button>
+      <p id="clozeScore"></p>
+    </article>
   </section>
 
   <section id="learn" class="panel">
@@ -283,5 +305,7 @@
 <script src="rune-journey-ui.js"></script>
 <script src="rune-exams.js"></script>
 <script src="rune-exams-ui.js"></script>
+<script src="rune-cloze.js"></script>
+<script src="rune-cloze-ui.js"></script>
 </body>
 </html>
