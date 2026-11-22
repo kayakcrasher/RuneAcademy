@@ -91,9 +91,48 @@ let strokes = [];
 let activeStroke = null;
 let attemptAwarded = false;
 
+function drawPrecisionGrid() {
+  ctx.save();
+
+  // Soft quarter guides.
+  ctx.strokeStyle="rgba(85,104,91,0.13)";
+  ctx.lineWidth=1;
+  ctx.setLineDash([4,7]);
+
+  for(const n of [80,240]) {
+    ctx.beginPath();
+    ctx.moveTo(n,0);
+    ctx.lineTo(n,320);
+    ctx.moveTo(0,n);
+    ctx.lineTo(320,n);
+    ctx.stroke();
+  }
+
+  // Main X and Y axes.
+  ctx.setLineDash([]);
+  ctx.strokeStyle="rgba(70,99,83,0.28)";
+  ctx.lineWidth=1.5;
+
+  ctx.beginPath();
+  ctx.moveTo(160,0);
+  ctx.lineTo(160,320);
+  ctx.moveTo(0,160);
+  ctx.lineTo(320,160);
+  ctx.stroke();
+
+  // Small center point.
+  ctx.fillStyle="rgba(70,99,83,0.28)";
+  ctx.beginPath();
+  ctx.arc(160,160,3,0,Math.PI*2);
+  ctx.fill();
+
+  ctx.restore();
+}
+
 function clearPad() {
   ctx.fillStyle = "#e7dfc9";
   ctx.fillRect(0,0,320,320);
+  drawPrecisionGrid();
   ctx.strokeStyle = "#253d32";
   ctx.lineWidth = 9;
   ctx.lineCap = "round";
@@ -158,6 +197,10 @@ document.querySelector("#check").onclick = () => {
     strokes,current
   );
 
+  const positionHint=result.placementPenalty>0
+    ?` · Centering: -${result.placementPenalty}`
+    :"";
+
   if (result.passed && !attemptAwarded) {
     attemptAwarded = true;
     const reward = RuneProgress.award(
@@ -173,7 +216,7 @@ document.querySelector("#check").onclick = () => {
       `ᚠ Success! ${result.score}% · XP already earned`;
   } else {
     feedback.textContent =
-      `Accuracy: ${result.score}%. Try again!`;
+      `Accuracy: ${result.score}%${positionHint}. Try again!`;
   }
 
   if (result.passed) {

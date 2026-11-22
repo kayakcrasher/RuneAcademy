@@ -119,6 +119,28 @@ const templates=SHAPES.map(shape =>
   normalize(parseShape(shape))
 );
 
+function placementPenalty(strokes) {
+  const points=strokes.flat().filter(p=>
+    Number.isFinite(p.x) &&
+    Number.isFinite(p.y)
+  );
+
+  if(!points.length) return 0;
+
+  const xs=points.map(p=>p.x);
+  const ys=points.map(p=>p.y);
+
+  const cx=(Math.min(...xs)+Math.max(...xs))/2;
+  const cy=(Math.min(...ys)+Math.max(...ys))/2;
+
+  // The center is (160,160).
+  // Allow 32px of freedom before applying a penalty.
+  const offset=Math.hypot(cx-160,cy-160);
+  return Math.min(8,
+    Math.round(Math.max(0,offset-32)/12)
+  );
+}
+
 function recognize(strokes,targetIndex) {
   if (!Number.isInteger(targetIndex) ||
       targetIndex<0 || targetIndex>=templates.length) {
@@ -138,15 +160,20 @@ function recognize(strokes,targetIndex) {
     Math.round(100*(1-d/0.16))
   ));
 
+  const penalty=placementPenalty(strokes);
+  const finalScore=Math.max(0,score-penalty);
+
   return {
-    score,
-    passed:score>=65,
-    distance:d
+    score:finalScore,
+    passed:finalScore>=65,
+    distance:d,
+    shapeScore:score,
+    placementPenalty:penalty
   };
 }
 
 root.RuneRecognizer={
-  recognize,parseShape,normalize,distance,
+  recognize,parseShape,normalize,distance,placementPenalty,
   shapes:SHAPES
 };
 
