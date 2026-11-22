@@ -432,3 +432,39 @@ nav {
   .key-rune { font-size:25px }
   .key-letter { font-size:10px }
 }
+
+/* SMASH 008 — Mobile rune input */
+#runeMessage,
+#trialAnswer {
+  caret-color:var(--gold);
+  user-select:text;
+  -webkit-user-select:text;
+}
+
+#runeMessage[readonly],
+#trialAnswer[readonly] {
+  cursor:default;
+  background:#101c17;
+  border:2px solid #b99a61;
+}
+
+.rune-keyboard {
+  margin-top:12px;
+}
+
+.rune-keyboard button {
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+
+@media(max-width:420px) {
+  #runeMessage {
+    min-height:100px;
+  }
+  #trialAnswer {
+    min-height:85px;
+  }
+  .rune-keyboard button {
+    min-height:54px;
+  }
+}

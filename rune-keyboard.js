@@ -58,7 +58,6 @@ function mount(container,textarea) {
       : start+value.length;
 
     textarea.value=result;
-    textarea.focus();
     textarea.setSelectionRange(cursor,cursor);
     textarea.dispatchEvent(
       new Event("input",{bubbles:true})
@@ -104,7 +103,7 @@ function mount(container,textarea) {
     textarea.dispatchEvent(
       new Event("input",{bubbles:true})
     );
-    textarea.focus();
+    textarea.setSelectionRange(0,0);
     status.textContent="Message cleared";
   }).classList.add("wide-key");
 
